@@ -17,11 +17,12 @@ nepochs = ls_nepochs;
 lrate_decay_step = ls_lrate_decay_step;
 config.init_lrate = ls_init_lrate;
 train;
+test;%%%%之前并没有
 
 % add softmax back
-for i = 1:nhops
-    memory{i}.mod_query.add(Softmax());
-end
+%for i = 1:nhops
+%    memory{i}.mod_query.add(Softmax());
+%end
 nepochs = nepochs2;
 lrate_decay_step = lrate_decay_step2;
 config.init_lrate = init_lrate2;

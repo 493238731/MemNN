@@ -5,6 +5,7 @@
 % LICENSE file in the root directory of this source tree. An additional grant 
 % of patent rights can be found in the PATENTS file in the same directory.
 
+%查表的类 找到词对应的词
 classdef LookUpTable < Module
     properties
         sz;
@@ -19,7 +20,7 @@ classdef LookUpTable < Module
             obj.weight = Weight([output_dim, sz]);
         end
         function output = fprop(obj, input)
-            obj.output = obj.weight.D(:,input(:));    
+            obj.output = obj.weight.D(:,input(:));    %D是20*30, 20是词向量维度，30是字典大小，得到的应该是一个 20*6*32的东西
             obj.output = squeeze(reshape(obj.output, [obj.out_dim, size(input)]));
             output = obj.output;
         end

@@ -8,8 +8,8 @@
 rng('shuffle')
 addpath nn;
 addpath memory;
-base_dir = 'tasks_1-20_v1-2 2/en/'; % path to data
-t = 1; % task ID
+base_dir = '/home/shin/DeepLearning/数据集/Facebook QA/tasks_1-20_v1-2/en'; % path to data
+t = 24; % task ID
 
 % parse data
 f = dir(fullfile(base_dir,['qa',num2str(t),'_*_train.txt']));
@@ -18,8 +18,8 @@ f = dir(fullfile(base_dir,['qa',num2str(t),'_*_test.txt']));
 test_data_path = {fullfile(base_dir,f(1).name)};
 dict = containers.Map;
 dict('nil') = 1;
-[story, questions,qstory] = parseBabiTask(data_path, dict, false);
-[test_story, test_questions, test_qstory] = parseBabiTask(test_data_path, dict, false);
+[story, questions,qstory] = parseBabiTask(data_path, dict, false); %story:6*10*200 ,question:10*1000,qstory=6*1000
+[test_story, test_questions, test_qstory] = parseBabiTask(test_data_path, dict, false); %test is the same
 
 % train and test
 config_babi;

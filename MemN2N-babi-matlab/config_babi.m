@@ -23,8 +23,8 @@ add_nonlin = false; % add non-linearity to internal states
 config = {};
 config.init_lrate = 0.01;
 config.max_grad_norm = 40;
-config.input_dim = 20;
-config.out_dim = 20;
+config.input_dim = 50;%20
+config.out_dim = 50;%20
 
 linear_start = true;
 if linear_start
@@ -34,7 +34,7 @@ if linear_start
     config.init_lrate = 0.01/2;
 end
 
-config.sz = min(50, size(story,2));
+config.sz = min(50, size(story,2));%story的size
 config.voc_sz = length(dict);
 config.bsz = batch_size;
 config.max_words = size(story,1);

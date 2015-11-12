@@ -17,19 +17,19 @@ for ep = 1:nepochs
     total_num = 0;
     for k = 1:floor(length(train_range)/batch_size)
         batch = train_range(randi(length(train_range), batch_size,1));
-        input = zeros(size(story,1),batch_size,'single');
+        input = zeros(size(story,1),batch_size,'single');%是问句，也可以说是last sentence
         target = questions(3,batch);
         memory{1}.data(:) = dict('nil');
         offset = zeros(1,batch_size,'single');
-        for b = 1:batch_size
-            d = story(:,1:questions(2,batch(b)),questions(1,batch(b)));
+        for b = 1:batch_size %对于batch内的每个sample（即问句）
+            d = story(:,1:questions(2,batch(b)),questions(1,batch(b))); %找到该问句对应的story段落（从头到答案句子）
             offset(b) = max(0,size(d,2)-config.sz);
-            d = d(:,1+offset(b):end);
-            memory{1}.data(1:size(d,1),1:size(d,2),b) = d;
+            d = d(:,1+offset(b):end); %将story段落划的更小一点，最多是config.sz这么多句
+            memory{1}.data(1:size(d,1),1:size(d,2),b) = d; %这里是关键，把d的内容传给了memory
             if enable_time
                 if randomize_time > 0
-                    nblank = randi([0,ceil(size(d,2) * randomize_time)]);
-                    rt = randperm(size(d,2) + nblank);
+                    nblank = randi([0,ceil(size(d,2) * randomize_time)]); %ceil是往大取整
+                    rt = randperm(size(d,2) + nblank); %打乱
                     rt(rt > config.sz) = config.sz; % vocabulary limit
                     memory{1}.data(end,1:size(d,2),b) = sort(rt(1:size(d,2)),'descend') + length(dict);
                 else

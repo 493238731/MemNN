@@ -61,7 +61,7 @@ if share_type == 1
     end
     model.modules{end-1}.share(memory{end}.emb_out);
 elseif share_type == 2
-    for i = 2:nhops
+    for i = 2:nhopsmo
         memory{i}.emb_query.share(memory{1}.emb_query);
         memory{i}.emb_out.share(memory{1}.emb_out);
     end

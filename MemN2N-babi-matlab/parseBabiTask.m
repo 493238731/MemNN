@@ -6,7 +6,7 @@
 % of patent rights can be found in the PATENTS file in the same directory.
 
 function [story, questions, qstory] = parseBabiTask(data_path, dict, include_question)
-story = zeros(20, 1000, 1000, 'single');
+story = zeros(25, 1000, 1000, 'single');
 story_ind = 0;
 sentence_ind = 0;
 max_words = 0;
@@ -15,7 +15,7 @@ max_sentences = 0;
 questions = zeros(10,1000, 'single');
 question_ind = 0;
 
-qstory = zeros(20,1000, 'single');
+qstory = zeros(25,1000, 'single');
 
 fi = 1;
 fd = fopen(data_path{fi});
@@ -36,15 +36,15 @@ while true
     end
     line_ind = line_ind + 1;
     words = textscan(line, '%s');
-    words = words{1};
+    words = words{1}; %��line��仰 ת����Ϊ length*1��cell
     
     if strcmp(words{1}, '1')
-        story_ind = story_ind + 1;
+        story_ind = story_ind + 1;%story index
         sentence_ind = 0;
         map = [];
     end
 
-    if sum(line == '?') == 0
+    if sum(line == '?') == 0  % not question
         is_question = false;
         sentence_ind = sentence_ind + 1;
     else        
@@ -68,7 +68,7 @@ while true
         if isKey(dict, w) == false
             dict(w) = length(dict) + 1;
         end        
-        max_words = max(max_words, k-1);
+        max_words = max(max_words, k-1);%һ�仰����󳤶� 
         
         if is_question == false
             story(k-1, sentence_ind, story_ind) = dict(w);
