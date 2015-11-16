@@ -27,3 +27,6 @@ nepochs = nepochs2;
 lrate_decay_step = lrate_decay_step2;
 config.init_lrate = init_lrate2;
 train;
+test;
+train;
+test;
